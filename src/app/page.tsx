@@ -4,8 +4,9 @@
 import { useState, useEffect } from 'react';
 import { generateDailyToken, getCurrentUtcDateStr } from '@/app/lib/token-utils';
 import { format } from 'date-fns';
-import { Hash, Calendar, Terminal } from 'lucide-react';
+import { Hash, Calendar, Terminal, Lock, ExternalLink } from 'lucide-react';
 import { CopyButton } from '@/components/copy-button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function Home() {
@@ -13,7 +14,6 @@ export default function Home() {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Check access token in URL
     const params = new URLSearchParams(window.location.search);
     const accessToken = params.get('AccessToken');
     
@@ -25,16 +25,44 @@ export default function Home() {
       setData({ token, displayDate });
     } else {
       setIsAuthorized(false);
-      // Redirect browser users to Rickroll if unauthorized
-      window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     }
   }, []);
 
   if (isAuthorized === false) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-background font-code p-6">
-        <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-muted-foreground animate-pulse">
-          Redirecting_to_authentication_node...
+      <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground font-code p-6 selection:bg-primary selection:text-primary-foreground">
+        <div className="w-full max-w-sm space-y-12 text-center animate-in fade-in duration-1000">
+          <div className="space-y-6">
+            <div className="flex justify-center">
+              <div className="p-4 border border-white/10 bg-white/5 rounded-full">
+                <Lock className="w-8 h-8 text-primary/50" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h1 className="text-[10px] font-bold uppercase tracking-[0.5em] text-muted-foreground">
+                Access.Required
+              </h1>
+              <p className="text-sm text-muted-foreground/60 leading-relaxed uppercase tracking-widest">
+                This node requires a valid authorization token for deterministic key synchronization.
+              </p>
+            </div>
+          </div>
+
+          <div className="pt-4">
+            <a 
+              href="https://link-target.net/1408661/Ays6AavuxWJ1" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-primary/90 transition-all active:scale-95"
+            >
+              Get Access Token
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+
+          <div className="text-[10px] text-muted-foreground/20 uppercase tracking-widest pt-8 border-t border-white/5">
+            System.Status: Gated.Node
+          </div>
         </div>
       </div>
     );

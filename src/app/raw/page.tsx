@@ -17,6 +17,7 @@ export default function RawPage() {
 
     if (accessToken !== '1Y8DIWB99ET') {
       setIsAuthorized(false);
+      // Redirect unauthorized browser users to Rickroll for /raw specifically
       window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
       return;
     }
