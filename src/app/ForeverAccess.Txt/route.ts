@@ -1,19 +1,10 @@
-
 import { NextResponse, NextRequest } from 'next/server';
 import config from '@config/checkpoint-config.json';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
-  const userAgent = request.headers.get('user-agent') || '';
-  const accept = request.headers.get('accept') || '';
-  
-  // Detect standard browsers and redirect them to Rickroll.
-  if (accept.includes('text/html') || userAgent.includes('Mozilla')) {
-    return NextResponse.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-  }
-
-  // Return the pure 222-character token for programmatic access.
+  // Rickroll removed as requested. Serving pure raw content to all clients.
   return new NextResponse(config.lifetimeToken, {
     status: 200,
     headers: {
