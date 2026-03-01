@@ -51,22 +51,6 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground font-body selection:bg-primary/20">
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-24 space-y-16">
         
-        {/* Header Section */}
-        <header className="flex flex-col gap-6">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-primary font-bold tracking-tight text-xl text-primary">
-              <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <h1>DAILY DATAID</h1>
-            </div>
-            <p className="text-muted-foreground text-sm max-w-sm">
-              Deterministic persistent identifier system. 
-              Generated server-side every 24 hours.
-            </p>
-          </div>
-        </header>
-
-        <Separator className="bg-primary/10" />
-
         {/* Main Generator View */}
         <main className="space-y-12">
           <div className="grid gap-8">
