@@ -9,7 +9,7 @@ export function generateDailyToken(dateStr: string): string {
   
   let result = '';
   let seed = Math.abs(hash || 1);
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 45; i++) {
     // Simple LCG pseudo-random generation
     seed = (seed * 16807) % 2147483647;
     result += alphabet.charAt(seed % alphabet.length);

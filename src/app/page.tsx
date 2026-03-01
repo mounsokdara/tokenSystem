@@ -85,7 +85,7 @@ export default function Home() {
                   <CopyButton value={data.token} />
                 </div>
                 
-                <div className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground break-all select-all py-4">
+                <div className="text-2xl md:text-4xl font-bold tracking-tight text-foreground break-all select-all py-8 leading-relaxed font-code">
                   {data.token}
                 </div>
               </div>
