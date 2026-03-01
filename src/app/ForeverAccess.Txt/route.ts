@@ -1,6 +1,6 @@
 
 import { NextResponse, NextRequest } from 'next/server';
-import config from '@/app/lib/checkpoint-config.json';
+import config from '@config/checkpoint-config.json';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,7 +9,6 @@ export async function GET(request: NextRequest) {
   const accept = request.headers.get('accept') || '';
   
   // Detect standard browsers and redirect them to Rickroll.
-  // Real clients like curl/wget usually don't send text/html in Accept.
   if (accept.includes('text/html') || userAgent.includes('Mozilla')) {
     return NextResponse.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
   }

@@ -4,7 +4,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Shield, ChevronRight, Lock, Loader2 } from 'lucide-react';
-import config from '@/app/lib/checkpoint-config.json';
+import config from '@config/checkpoint-config.json';
 
 function CheckpointContent() {
   const searchParams = useSearchParams();
@@ -40,7 +40,6 @@ function CheckpointContent() {
     );
   }
 
-  const nextState = (parseInt(stateParam) + 1).toString();
   const isFinal = stateParam === '3';
 
   return (

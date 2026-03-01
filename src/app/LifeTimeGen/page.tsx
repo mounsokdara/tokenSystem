@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Infinity, FileText, ChevronLeft, ShieldCheck } from 'lucide-react';
 import { CopyButton } from '@/components/copy-button';
 import Link from 'next/link';
-import config from '@/app/lib/checkpoint-config.json';
+import config from '@config/checkpoint-config.json';
 
 function LifeTimeContent() {
   const searchParams = useSearchParams();
