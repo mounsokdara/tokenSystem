@@ -39,7 +39,7 @@ export default function Home() {
             </div>
             <div className="space-y-2">
               <h1 className="text-[10px] font-bold uppercase tracking-[0.5em] text-muted-foreground">
-                Access.Required
+                Access Token 1 Day expired
               </h1>
               <p className="text-sm text-muted-foreground/60 leading-relaxed uppercase tracking-widest">
                 This node requires a valid authorization token for deterministic key synchronization.
@@ -62,7 +62,7 @@ export default function Home() {
               href="/Checkpoint?State=0" 
               className="w-full inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-primary/90 transition-all shadow-[0_0_20px_rgba(var(--primary),0.2)] active:scale-95"
             >
-              Get Lifetime Access
+              Get life time token
               <Infinity className="w-3 h-3" />
             </a>
           </div>
