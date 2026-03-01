@@ -4,14 +4,11 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
 import { 
   Code2, 
   Hash, 
   Calendar, 
   ExternalLink, 
-  RefreshCw, 
-  FileText,
   Copy,
   Check
 } from 'lucide-react';
@@ -57,9 +54,9 @@ export default function Home() {
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-24 space-y-16">
         
         {/* Header Section */}
-        <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <header className="flex flex-col gap-6">
           <div className="space-y-1">
-            <div className="flex items-center gap-2 text-primary font-bold tracking-tight text-xl">
+            <div className="flex items-center gap-2 text-primary font-bold tracking-tight text-xl text-primary">
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <h1>DAILY DATAID</h1>
             </div>
@@ -67,18 +64,6 @@ export default function Home() {
               Deterministic persistent identifier system. 
               Generated server-side every 24 hours.
             </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={fetchData}
-              disabled={loading}
-              className="rounded-none border-dashed hover:bg-primary/5 transition-all"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 mr-2 ${loading ? 'animate-spin' : ''}`} />
-              REGENERATE VIEW
-            </Button>
           </div>
         </header>
 
