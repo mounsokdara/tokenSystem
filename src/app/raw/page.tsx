@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, Copy, Check } from 'lucide-react';
+import { ChevronLeft, Copy, Check, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function RawPage() {
@@ -25,7 +25,7 @@ export default function RawPage() {
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-[#e0e0e0] font-code selection:bg-primary selection:text-white">
       <div className="max-w-4xl mx-auto p-6 md:p-12 space-y-8">
-        <header className="flex items-center justify-between">
+        <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <Link 
             href="/" 
             className="flex items-center gap-2 text-muted-foreground hover:text-white transition-colors"
@@ -34,10 +34,17 @@ export default function RawPage() {
             <span>Back to UI</span>
           </Link>
           
-          <div className="flex items-center gap-4">
-            <div className="text-xs text-muted-foreground hidden sm:block">
-              Content-Type: application/json
-            </div>
+          <div className="flex items-center gap-2">
+            <Link href="/raw.txt" target="_blank">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-muted-foreground hover:text-white hover:bg-white/10"
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                View .txt
+              </Button>
+            </Link>
             <Button 
               variant="ghost" 
               size="sm" 
@@ -65,8 +72,9 @@ export default function RawPage() {
           )}
         </main>
 
-        <footer className="text-center text-xs text-muted-foreground/50 pt-8">
-          The above data is served from a server-side route using modern edge infrastructure.
+        <footer className="text-center text-xs text-muted-foreground/50 pt-8 flex flex-col gap-2">
+          <div>The above data is served from a server-side route using modern edge infrastructure.</div>
+          <div className="text-muted-foreground/30">Content-Type: application/json</div>
         </footer>
       </div>
     </div>

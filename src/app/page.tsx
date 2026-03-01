@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Code2, Hash, Calendar, ExternalLink, RefreshCw } from 'lucide-react';
+import { Code2, Hash, Calendar, ExternalLink, RefreshCw, FileText } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface DailyData {
@@ -88,13 +88,22 @@ export default function Home() {
         </main>
 
         <footer className="pt-8 flex flex-col items-center gap-6">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <Link 
               href="/raw" 
               className="flex items-center gap-2 text-primary font-medium hover:text-accent transition-colors py-2 px-4 rounded-full bg-primary/5 border border-primary/10 hover:border-accent/30 group"
             >
               <Code2 className="w-4 h-4" />
-              <span>View Raw Data</span>
+              <span>View JSON</span>
+              <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Link>
+            <Link 
+              href="/raw.txt" 
+              target="_blank"
+              className="flex items-center gap-2 text-primary font-medium hover:text-accent transition-colors py-2 px-4 rounded-full bg-primary/5 border border-primary/10 hover:border-accent/30 group"
+            >
+              <FileText className="w-4 h-4" />
+              <span>View Raw Text</span>
               <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
             </Link>
           </div>
