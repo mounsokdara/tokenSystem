@@ -4,47 +4,26 @@
 
 @layer base {
   :root {
-    --background: 260 20% 95%; /* #F2EFF5 */
-    --foreground: 250 40% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 250 40% 15%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 250 40% 15%;
-    --primary: 250 40% 43%; /* #514299 */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 250 20% 90%;
-    --secondary-foreground: 250 40% 43%;
-    --muted: 250 20% 90%;
-    --muted-foreground: 250 20% 40%;
-    --accent: 215 64% 61%; /* #5C91DA */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 250 20% 85%;
-    --input: 250 20% 85%;
-    --ring: 250 40% 43%;
-    --radius: 0.75rem;
-  }
-  .dark {
-    --background: 250 40% 5%;
+    --background: 250 40% 4%; /* Deep dark background */
     --foreground: 250 20% 95%;
-    --card: 250 40% 7%;
+    --card: 250 40% 6%;
     --card-foreground: 250 20% 95%;
-    --popover: 250 40% 7%;
+    --popover: 250 40% 6%;
     --popover-foreground: 250 20% 95%;
-    --primary: 250 40% 60%;
+    --primary: 250 40% 65%; /* Vibrant violet accent */
     --primary-foreground: 250 40% 5%;
-    --secondary: 250 40% 15%;
+    --secondary: 250 40% 12%;
     --secondary-foreground: 250 20% 95%;
-    --muted: 250 40% 15%;
-    --muted-foreground: 250 20% 60%;
-    --accent: 215 64% 70%;
+    --muted: 250 40% 12%;
+    --muted-foreground: 250 15% 50%;
+    --accent: 215 64% 70%; /* Soft blue accent */
     --accent-foreground: 250 40% 5%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 250 40% 15%;
     --input: 250 40% 15%;
-    --ring: 250 40% 60%;
+    --ring: 250 40% 65%;
+    --radius: 0rem; /* Flat UX as requested */
   }
 }
 

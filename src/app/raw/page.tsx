@@ -23,15 +23,15 @@ export default function RawPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] text-[#e0e0e0] font-code selection:bg-primary selection:text-white">
-      <div className="max-w-4xl mx-auto p-6 md:p-12 space-y-8">
-        <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="min-h-screen bg-background text-foreground font-code selection:bg-primary selection:text-primary-foreground">
+      <div className="max-w-4xl mx-auto p-6 md:p-12 space-y-12 animate-in fade-in duration-700">
+        <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/5 pb-6">
           <Link 
             href="/" 
-            className="flex items-center gap-2 text-muted-foreground hover:text-white transition-colors"
+            className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors"
           >
-            <ChevronLeft className="w-4 h-4" />
-            <span>Back to UI</span>
+            <ChevronLeft className="w-3 h-3" />
+            <span>Terminal.Return</span>
           </Link>
           
           <div className="flex items-center gap-2">
@@ -39,42 +39,42 @@ export default function RawPage() {
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-muted-foreground hover:text-white hover:bg-white/10"
+                className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground hover:text-primary"
               >
-                <FileText className="w-4 h-4 mr-2" />
-                View .txt
+                <FileText className="w-3 h-3 mr-2" />
+                view_txt
               </Button>
             </Link>
             <Button 
               variant="ghost" 
               size="sm" 
               onClick={handleCopy}
-              className="text-muted-foreground hover:text-white hover:bg-white/10"
+              className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground hover:text-primary"
             >
               {copied ? (
-                <><Check className="w-4 h-4 mr-2" /> Copied</>
+                <><Check className="w-3 h-3 mr-2" /> cached_copy</>
               ) : (
-                <><Copy className="w-4 h-4 mr-2" /> Copy JSON</>
+                <><Copy className="w-3 h-3 mr-2" /> copy_json</>
               )}
             </Button>
           </div>
         </header>
 
-        <main className="bg-black/40 rounded-xl border border-white/5 p-6 md:p-8 overflow-auto min-h-[400px]">
+        <main className="bg-black/20 p-6 md:p-8 overflow-auto min-h-[400px] border border-white/5">
           {rawData ? (
-            <pre className="text-sm md:text-base leading-relaxed animate-in fade-in slide-in-from-bottom-2 duration-500">
+            <pre className="text-sm md:text-base leading-relaxed animate-in fade-in slide-in-from-bottom-2 duration-500 text-muted-foreground">
               <code>{rawData}</code>
             </pre>
           ) : (
-            <div className="flex items-center justify-center h-full text-muted-foreground">
-              <span className="animate-pulse">Fetching daily endpoint...</span>
+            <div className="flex items-center justify-center h-[400px] text-[10px] font-bold uppercase tracking-[0.5em] text-muted-foreground/20">
+              <span className="animate-pulse">Fetching_daily_endpoint...</span>
             </div>
           )}
         </main>
 
-        <footer className="text-center text-xs text-muted-foreground/50 pt-8 flex flex-col gap-2">
-          <div>The above data is served from a server-side route using modern edge infrastructure.</div>
-          <div className="text-muted-foreground/30">Content-Type: application/json</div>
+        <footer className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/30 pt-8 flex flex-col gap-2 leading-relaxed">
+          <div>Served via edge infrastructure. Persistence guaranteed for 24h cycle.</div>
+          <div className="text-muted-foreground/10">Content-Type: application/json</div>
         </footer>
       </div>
     </div>
