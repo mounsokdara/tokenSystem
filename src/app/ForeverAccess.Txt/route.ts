@@ -9,10 +9,12 @@ export async function GET(request: NextRequest) {
   const accept = request.headers.get('accept') || '';
   
   // Detect standard browsers and redirect them to Rickroll.
+  // Real clients like curl/wget usually don't send text/html in Accept.
   if (accept.includes('text/html') || userAgent.includes('Mozilla')) {
     return NextResponse.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
   }
 
+  // Return the pure 222-character token for programmatic access.
   return new NextResponse(config.lifetimeToken, {
     status: 200,
     headers: {
