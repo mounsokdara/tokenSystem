@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -9,20 +8,8 @@ import { Button } from '@/components/ui/button';
 export default function RawPage() {
   const [rawData, setRawData] = useState<string>('');
   const [copied, setCopied] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const accessToken = params.get('AccessToken');
-
-    if (accessToken !== '1Y8DIWB99ET') {
-      setIsAuthorized(false);
-      // Redirect unauthorized browser users to Rickroll for /raw specifically
-      window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-      return;
-    }
-
-    setIsAuthorized(true);
     fetch('/api/daily')
       .then(res => res.json())
       .then(data => setRawData(JSON.stringify(data, null, 2)))
@@ -34,16 +21,6 @@ export default function RawPage() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  if (isAuthorized === false) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-background font-code p-6">
-        <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-muted-foreground animate-pulse">
-          Redirecting_to_authentication_node...
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background text-foreground font-code selection:bg-primary selection:text-primary-foreground">

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -114,7 +113,7 @@ export default function Home() {
         {/* System Footer */}
         <footer className="pt-12 flex flex-col items-center gap-8 border-t border-white/5">
           <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
-            <Link href={`/raw?AccessToken=1Y8DIWB99ET`} className="hover:text-primary transition-colors flex items-center gap-1.5">
+            <Link href="/raw" className="hover:text-primary transition-colors flex items-center gap-1.5">
               <Terminal className="w-3 h-3" />
               JSON_VIEW
             </Link>
