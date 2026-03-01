@@ -3,32 +3,32 @@
   "states": {
     "0": {
       "title": "Checkpoint.Initial",
-      "description": "Initialize lifecycle synchronization. Complete Step 1 to proceed.",
-      "buttonText": "Execute Step 1",
-      "buttonUrl": "https://link-hub.net/1408661/sZhCkIIjpJ8A",
+      "description": "Complete the checkpoint to get script access",
+      "buttonText": "Complete Step 1",
+      "buttonUrl": "https://link-hub.net/1408661/RIH8bS3S8lmB",
       "nextToken": "UEUE28EUD7WJDJDU"
     },
     "1": {
       "title": "Checkpoint.Alpha",
-      "description": "Step 1 verified. Phase Alpha authorized. Complete Step 2 for decryption.",
-      "buttonText": "Execute Step 2",
-      "buttonUrl": "https://link-hub.net/1408661/HprPo0yICUQx",
+      "description": "You're now completed checkpoint 1",
+      "buttonText": "Complete Step 2",
+      "buttonUrl": "https://direct-link.net/1408661/aQsdmC0HSS23",
       "requiredToken": "UEUE28EUD7WJDJDU",
       "nextToken": "DHIDIUYH3I7YE"
     },
     "2": {
       "title": "Checkpoint.Beta",
-      "description": "Step 2 verified. Phase Beta authorized. Final step required for Permanent Access.",
-      "buttonText": "Execute Step 3",
-      "buttonUrl": "https://link-target.net/1408661/6QDLS9qYtCdh",
+      "description": "You're now completed checkpoint 2",
+      "buttonText": "Complete Step 3",
+      "buttonUrl": "https://link-target.net/1408661/SLvgyUHQkfwj",
       "requiredToken": "DHIDIUYH3I7YE",
       "nextToken": "JFIEHUCHWIYWWUDU"
     },
     "3": {
       "title": "Checkpoint.Final",
-      "description": "Phase Gamma verified. Deterministic signature complete. Redirecting to Final Node...",
-      "buttonText": "Access Final Node",
-      "buttonUrl": "/LifeTimeGen?ApiAccessToken=YEUURYEYEEUU",
+      "description": "You're now completed checkpoint 3",
+      "buttonText": "Complete last checkpoint",
+      "buttonUrl": "https://link-center.net/1408661/gHvsKRwa9JMc",
       "requiredToken": "JFIEHUCHWIYWWUDU"
     }
   },

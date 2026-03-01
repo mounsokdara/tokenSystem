@@ -42,6 +42,16 @@ function CheckpointContent() {
 
   const isFinal = stateParam === '3';
 
+  // State 3 doesn't have a nextToken, it leads to the Final Access URL defined in config
+  const handleFinalRedirect = () => {
+    if (isFinal) {
+      // Small delay to simulate verification before final redirect
+      setTimeout(() => {
+        router.push(config.finalAccessUrl);
+      }, 500);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground font-code p-6 selection:bg-primary selection:text-primary-foreground">
       <div className="w-full max-w-md space-y-12 text-center animate-in fade-in duration-700">
@@ -65,9 +75,10 @@ function CheckpointContent() {
 
         <div className="pt-4 flex flex-col items-center gap-4">
           <a 
-            href={isFinal ? currentState.buttonUrl : currentState.buttonUrl} 
-            target={isFinal ? "_self" : "_blank"}
+            href={currentState.buttonUrl} 
+            target="_blank"
             rel="noopener noreferrer"
+            onClick={handleFinalRedirect}
             className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-primary/90 transition-all active:scale-95 border border-white/10"
           >
             {currentState.buttonText}
