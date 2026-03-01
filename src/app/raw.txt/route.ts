@@ -1,18 +1,5 @@
-import { NextResponse, NextRequest } from 'next/server';
-import { generateDailyToken, getCurrentUtcDateStr } from '@/app/lib/token-utils';
 
-export const dynamic = 'force-dynamic';
-
-export async function GET(request: NextRequest) {
-  // Rickroll removed as requested.
-  const dateStr = getCurrentUtcDateStr();
-  const token = generateDailyToken(dateStr);
-  
-  return new NextResponse(token, {
-    status: 200,
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'no-store, max-age=0',
-    },
-  });
+import { NextResponse } from 'next/server';
+export async function GET() {
+  return new NextResponse(null, { status: 404 });
 }
