@@ -2,9 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Code2, Hash, Calendar, ExternalLink, RefreshCw, FileText } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { 
+  Code2, 
+  Hash, 
+  Calendar, 
+  ExternalLink, 
+  RefreshCw, 
+  FileText,
+  Copy,
+  Check
+} from 'lucide-react';
 import { format } from 'date-fns';
 
 interface DailyData {
@@ -15,6 +25,7 @@ interface DailyData {
 export default function Home() {
   const [data, setData] = useState<DailyData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -33,83 +44,132 @@ export default function Home() {
     fetchData();
   }, []);
 
+  const copyToClipboard = () => {
+    if (data?.token) {
+      navigator.clipboard.writeText(data.token);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-background animate-in fade-in duration-700">
-      <div className="w-full max-w-2xl space-y-12 text-center">
-        <header className="space-y-2">
-          <h1 className="text-4xl font-headline font-bold tracking-tight text-primary">
-            Daily DataID
-          </h1>
-          <p className="text-muted-foreground font-body">
-            Automatically generated persistent unique identifier for today.
-          </p>
+    <div className="min-h-screen bg-background text-foreground font-body selection:bg-primary/20">
+      <div className="max-w-3xl mx-auto px-6 py-12 md:py-24 space-y-16">
+        
+        {/* Header Section */}
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-primary font-bold tracking-tight text-xl">
+              <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <h1>DAILY DATAID</h1>
+            </div>
+            <p className="text-muted-foreground text-sm max-w-sm">
+              Deterministic persistent identifier system. 
+              Generated server-side every 24 hours.
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={fetchData}
+              disabled={loading}
+              className="rounded-none border-dashed hover:bg-primary/5 transition-all"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 mr-2 ${loading ? 'animate-spin' : ''}`} />
+              REGENERATE VIEW
+            </Button>
+          </div>
         </header>
 
-        <main className="relative group">
-          <Card className="p-12 shadow-2xl border-none bg-white/50 backdrop-blur-sm relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-               <button onClick={fetchData} className="text-muted-foreground hover:text-primary transition-colors">
-                  <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
-               </button>
-            </div>
+        <Separator className="bg-primary/10" />
 
-            <div className="space-y-8">
-              <div className="space-y-3">
-                <div className="flex items-center justify-center gap-2 text-primary/60 text-sm font-medium uppercase tracking-widest">
-                  <Hash className="w-4 h-4" />
-                  <span>Daily Token</span>
+        {/* Main Generator View */}
+        <main className="space-y-12">
+          <div className="grid gap-8">
+            {/* Token Section */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-[10px] font-code font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
+                  <Hash className="w-3 h-3" />
+                  System Token Output
                 </div>
+                {data && !loading && (
+                   <button 
+                    onClick={copyToClipboard}
+                    className="flex items-center gap-1.5 text-[10px] font-code uppercase tracking-wider text-primary hover:text-accent transition-colors"
+                  >
+                    {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    {copied ? 'Copied' : 'Copy Key'}
+                  </button>
+                )}
+              </div>
+              
+              <div className="relative group">
                 {loading ? (
-                  <Skeleton className="h-20 w-full rounded-lg mx-auto bg-primary/5" />
+                  <Skeleton className="h-24 w-full bg-primary/5 rounded-none" />
                 ) : (
-                  <div className="text-5xl md:text-7xl font-code font-bold tracking-tighter text-accent bg-clip-text drop-shadow-sm select-all">
-                    {data?.token}
+                  <div className="py-8 px-4 bg-muted/30 border-l-2 border-accent transition-all duration-500">
+                    <div className="text-4xl md:text-6xl font-code font-bold tracking-tighter text-foreground break-all select-all">
+                      {data?.token}
+                    </div>
                   </div>
                 )}
               </div>
+            </div>
 
-              <div className="h-px w-16 bg-border mx-auto" />
-
-              <div className="space-y-3">
-                <div className="flex items-center justify-center gap-2 text-primary/60 text-sm font-medium uppercase tracking-widest">
-                  <Calendar className="w-4 h-4" />
-                  <span>Current Date</span>
+            {/* Metadata Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-[10px] font-code font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
+                  <Calendar className="w-3 h-3" />
+                  Validity Period
                 </div>
                 {loading ? (
-                  <Skeleton className="h-8 w-48 mx-auto bg-primary/5" />
+                  <Skeleton className="h-6 w-48 bg-primary/5 rounded-none" />
                 ) : (
-                  <p className="text-2xl font-body text-primary/80">
-                    {data ? format(new Date(data.date), 'EEEE, MMMM do, yyyy') : '...'}
-                  </p>
+                  <div className="text-lg font-medium text-primary/80">
+                    {data ? format(new Date(data.date), 'MMMM do, yyyy') : '...'}
+                  </div>
                 )}
               </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-[10px] font-code font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
+                  <ExternalLink className="w-3 h-3" />
+                  Format Options
+                </div>
+                <div className="flex gap-4">
+                  <Link 
+                    href="/raw" 
+                    className="text-sm font-medium hover:text-accent border-b border-transparent hover:border-accent transition-all"
+                  >
+                    JSON
+                  </Link>
+                  <Link 
+                    href="/raw.txt" 
+                    target="_blank"
+                    className="text-sm font-medium hover:text-accent border-b border-transparent hover:border-accent transition-all"
+                  >
+                    Plain Text
+                  </Link>
+                </div>
+              </div>
             </div>
-          </Card>
+          </div>
         </main>
 
-        <footer className="pt-8 flex flex-col items-center gap-6">
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link 
-              href="/raw" 
-              className="flex items-center gap-2 text-primary font-medium hover:text-accent transition-colors py-2 px-4 rounded-full bg-primary/5 border border-primary/10 hover:border-accent/30 group"
-            >
-              <Code2 className="w-4 h-4" />
-              <span>View JSON</span>
-              <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </Link>
-            <Link 
-              href="/raw.txt" 
-              target="_blank"
-              className="flex items-center gap-2 text-primary font-medium hover:text-accent transition-colors py-2 px-4 rounded-full bg-primary/5 border border-primary/10 hover:border-accent/30 group"
-            >
-              <FileText className="w-4 h-4" />
-              <span>View Raw Text</span>
-              <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </Link>
+        <Separator className="bg-primary/10" />
+
+        {/* Footer / Info */}
+        <footer className="grid grid-cols-1 md:grid-cols-3 gap-8 text-[11px] leading-relaxed text-muted-foreground/70 font-code uppercase tracking-wider">
+          <div className="md:col-span-2">
+            This token is derived from a deterministic algorithm utilizing the UTC ISO 8601 date string as a entropy seed. All instances globally synchronize at 00:00:00 UTC.
           </div>
-          
-          <div className="max-w-md text-sm text-muted-foreground leading-relaxed px-4">
-            This token is generated server-side using a deterministic algorithm based on the UTC calendar date. It remains persistent for all users globally for exactly 24 hours.
+          <div className="flex md:justify-end items-start gap-4">
+            <div className="flex items-center gap-1.5 opacity-50">
+              <Code2 className="w-3 h-3" />
+              V1.0.4-STABLE
+            </div>
           </div>
         </footer>
       </div>
