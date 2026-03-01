@@ -3,27 +3,56 @@
 import { useState, useEffect } from 'react';
 import { generateDailyToken, getCurrentUtcDateStr } from '@/app/lib/token-utils';
 import { format } from 'date-fns';
-import { Hash, Calendar, Terminal } from 'lucide-react';
+import { Hash, Calendar, Terminal, ShieldAlert } from 'lucide-react';
 import { CopyButton } from '@/components/copy-button';
 import Link from 'next/link';
 
 export default function Home() {
   const [data, setData] = useState<{ token: string; displayDate: string } | null>(null);
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Generate token only on the client for deterministic local UTC sync
-    const dateStr = getCurrentUtcDateStr();
-    const token = generateDailyToken(dateStr);
-    const displayDate = format(new Date(dateStr), 'yyyy.MM.dd');
-    setData({ token, displayDate });
+    // Check access token in URL
+    const params = new URLSearchParams(window.location.search);
+    const accessToken = params.get('AccessToken');
+    
+    if (accessToken === '1Y8DIWB99ET') {
+      setIsAuthorized(true);
+      // Generate daily token only if authorized
+      const dateStr = getCurrentUtcDateStr();
+      const token = generateDailyToken(dateStr);
+      const displayDate = format(new Date(dateStr), 'yyyy.MM.dd');
+      setData({ token, displayDate });
+    } else {
+      setIsAuthorized(false);
+    }
   }, []);
+
+  if (isAuthorized === false) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground font-code p-6">
+        <div className="flex flex-col items-center gap-6 animate-in fade-in duration-700">
+          <ShieldAlert className="w-12 h-12 text-primary opacity-50" />
+          <div className="text-center space-y-4">
+            <h1 className="text-[10px] font-bold uppercase tracking-[0.4em] text-muted-foreground">Access.Required</h1>
+            <a 
+              href="https://link-target.net/1408661/Ays6AavuxWJ1" 
+              className="inline-block px-8 py-4 border border-primary/20 bg-primary/5 text-primary text-sm font-bold uppercase tracking-widest hover:bg-primary hover:text-primary-foreground transition-all"
+            >
+              Get Access token
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground font-code p-6 selection:bg-primary selection:text-primary-foreground">
       <div className="w-full max-w-xl space-y-16 animate-in fade-in duration-1000">
         
         {/* Output Area */}
-        <main className="space-y-8">
+        <main className="space-y-8 text-center">
           {data ? (
             <div className="space-y-12">
               {/* Token Display */}
@@ -55,7 +84,7 @@ export default function Home() {
           ) : (
             <div className="flex flex-col items-center gap-4 py-20">
               <div className="text-xs text-muted-foreground animate-pulse tracking-widest uppercase">
-                Synchronizing.Clock...
+                {isAuthorized === null ? "Authenticating..." : "Synchronizing.Clock..."}
               </div>
             </div>
           )}
