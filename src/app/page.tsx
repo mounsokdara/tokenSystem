@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
 import { 
   Code2, 
   Hash, 
   Calendar, 
-  ExternalLink, 
   Copy,
   Check
 } from 'lucide-react';
@@ -117,27 +115,6 @@ export default function Home() {
                     {data ? format(new Date(data.date), 'MMMM do, yyyy') : '...'}
                   </div>
                 )}
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-[10px] font-code font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
-                  <ExternalLink className="w-3 h-3" />
-                  Format Options
-                </div>
-                <div className="flex gap-4">
-                  <Link 
-                    href="/raw" 
-                    className="text-sm font-medium hover:text-accent border-b border-transparent hover:border-accent transition-all"
-                  >
-                    JSON
-                  </Link>
-                  <Link 
-                    href="/raw.txt" 
-                    target="_blank"
-                    className="text-sm font-medium hover:text-accent border-b border-transparent hover:border-accent transition-all"
-                  >
-                    Plain Text
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
