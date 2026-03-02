@@ -4,89 +4,97 @@ import { generateDailyToken, getCurrentUtcDateStr } from '@/app/lib/token-utils'
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-const ACCESS_DENIED_HTML = (url: string) => `
+const ACCESS_DENIED_HTML = () => `
 <!DOCTYPE html>
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Access Denied</title>
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Theme Configuration -->
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#ec9213",
-                        "background-light": "#f8f7f6",
-                        "background-dark": "#221a10",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"],
-                        "mono": ["Space Grotesk", "monospace"]
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#ec9213",
+                    "background-dark": "#0a0a0a",
+                },
+                fontFamily: {
+                    "display": ["Space Grotesk", "sans-serif"],
                 },
             },
-        }
-    </script>
+        },
+    }
+</script>
 <style>
     body {
-      min-height: max(884px, 100dvh);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-color: #0a0a0a;
+        font-family: 'Space Grotesk', sans-serif;
+        color: white;
+        overflow: hidden;
     }
-    @keyframes fade-in-up {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes pulse-ring {
+        0% { transform: scale(0.8); opacity: 0.5; }
+        100% { transform: scale(1.4); opacity: 0; }
     }
-    .animate-fade-in-up {
-      animation: fade-in-up 0.3s ease-out;
+    .pulse::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid #ec9213;
+        animation: pulse-ring 2s infinite;
     }
-  </style>
-  </head>
-<body class="bg-background-light dark:bg-background-dark text-[#181511] dark:text-white font-display antialiased overflow-x-hidden">
-<div class="relative flex h-full min-h-screen w-full flex-col">
-<!-- TopAppBar -->
-<div class="flex items-center px-4 py-4 justify-between sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
-<button id="homeButton" class="relative flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" onclick="window.location.href = '/'">
-<span class="material-symbols-outlined text-[#181511] dark:text-white" style="font-size: 24px;">home</span>
-</button>
-<h2 class="text-[#181511] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">
-                Security Alert
-            </h2>
-</div>
-<!-- Main Content -->
-<div class="flex flex-col flex-1 px-6 pb-8 pt-4 items-center max-w-md mx-auto w-full">
-<!-- Warning Graphic -->
-<div class="flex flex-col items-center justify-center py-8">
-<div class="relative flex items-center justify-center size-24 rounded-full bg-primary/10 mb-4 ring-1 ring-primary/20">
-<span class="material-symbols-outlined text-primary" style="font-size: 48px;">gpp_maybe</span>
-<!-- Decorative subtle pulse -->
-<div class="absolute inset-0 rounded-full bg-primary/5 animate-pulse"></div>
-</div>
-</div>
-<!-- Headline -->
-<h1 class="text-[#181511] dark:text-white tracking-tight text-3xl font-bold leading-tight text-center mb-4">
-                Script Access Denied
-            </h1>
-<!-- New Message -->
-<p class="text-[#181511]/70 dark:text-white/70 text-base font-normal leading-relaxed text-center mb-8 animate-fade-in-up">
-                This endpoint is strictly for Lua client usage. Browser requests are blocked for security purposes.
-            </p>
-</div>
-</div>
+    .card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        padding: 4rem 2rem;
+        border-radius: 2rem;
+        text-align: center;
+        max-width: 480px;
+        width: 90%;
+        box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
+    }
+    .animate-in {
+        animation: animate-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes animate-in {
+        from { opacity: 0; transform: translateY(20px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+</style>
+</head>
+<body class="dark">
+    <div class="card animate-in">
+        <div class="relative inline-flex items-center justify-center size-24 bg-primary/10 rounded-full mb-10 pulse">
+            <span class="material-symbols-outlined text-primary" style="font-size: 48px;">gpp_maybe</span>
+        </div>
+        <h1 class="text-3xl font-bold mb-4 tracking-tight uppercase">Security Alert</h1>
+        <p class="text-white/50 text-base leading-relaxed mb-12 max-w-[320px] mx-auto uppercase tracking-widest text-[11px] font-medium">
+            This endpoint is strictly for Lua client usage. Browser requests are blocked for security purposes.
+        </p>
+        <div class="flex flex-col gap-6">
+            <a href="/" class="py-4 px-8 bg-primary text-black font-bold uppercase tracking-[0.3em] text-[10px] rounded-full hover:bg-primary/90 transition-all active:scale-95 shadow-lg shadow-primary/20">
+                Return to Terminal
+            </a>
+            <div class="text-[9px] uppercase tracking-[0.5em] text-white/10 font-bold">
+                Authorization.Denied • System.Lock: Active
+            </div>
+        </div>
+    </div>
 </body></html>
 `;
 
@@ -106,7 +114,7 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  return new NextResponse(ACCESS_DENIED_HTML(request.nextUrl.toString()), {
+  return new NextResponse(ACCESS_DENIED_HTML(), {
     status: 403,
     headers: { 'Content-Type': 'text/html' },
   });
