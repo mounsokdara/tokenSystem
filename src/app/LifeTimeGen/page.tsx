@@ -22,7 +22,9 @@ function LifeTimeContent() {
     // Live Clock Logic
     const timer = setInterval(() => {
       const now = new Date();
-      setCurrentTime(now.toUTCString().split(' ')[4] + ' UTC');
+      const parts = now.toUTCString().split(' ');
+      // parts: [DayOfWeek, Day, Month, Year, Time, GMT]
+      setCurrentTime(`${parts[1]} ${parts[2]} ${parts[3]} • ${parts[4]} UTC`);
     }, 1000);
 
     return () => clearInterval(timer);
@@ -45,7 +47,7 @@ function LifeTimeContent() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-accent">
               <Clock className="w-3 h-3" />
-              <span>{currentTime || "--:--:--"}</span>
+              <span>{currentTime || "-- --- ---- • --:--:-- UTC"}</span>
             </div>
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary border-l border-white/10 pl-4">
               <ShieldCheck className="w-3 h-3" />

@@ -30,7 +30,9 @@ export default function Home() {
     // Live Clock Logic
     const timer = setInterval(() => {
       const now = new Date();
-      setCurrentTime(now.toUTCString().split(' ')[4] + ' UTC');
+      const parts = now.toUTCString().split(' ');
+      // parts: [DayOfWeek, Day, Month, Year, Time, GMT]
+      setCurrentTime(`${parts[1]} ${parts[2]} ${parts[3]} • ${parts[4]} UTC`);
     }, 1000);
 
     return () => clearInterval(timer);
@@ -39,7 +41,7 @@ export default function Home() {
   if (isAuthorized === false) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground font-code p-6 selection:bg-primary selection:text-primary-foreground">
-        <div className="w-full max-w-sm space-y-12 text-center animate-in fade-in duration-1000">
+        <div className="w-full max-sm space-y-12 text-center animate-in fade-in duration-1000">
           <div className="space-y-6">
             <div className="flex justify-center">
               <div className="p-4 border border-white/10 bg-white/5 rounded-full">
@@ -122,7 +124,7 @@ export default function Home() {
                     System.Time
                   </div>
                   <div className="text-lg font-medium text-accent tracking-widest">
-                    {currentTime || "--:--:--"}
+                    {currentTime || "-- --- ---- • --:--:-- UTC"}
                   </div>
                 </div>
               </div>
