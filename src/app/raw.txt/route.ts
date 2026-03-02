@@ -54,29 +54,6 @@ const ACCESS_DENIED_HTML = (url: string) => `
     .animate-fade-in-up {
       animation: fade-in-up 0.3s ease-out;
     }
-    .ripple-container {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      border-radius: inherit;
-    }
-    .ripple-effect {
-      position: absolute;
-      border-radius: 50%;
-      background-color: rgba(0,0,0,0.1);
-      transform-origin: center;
-      transform: translate(-50%, -50%) scale(0);
-      animation: ripple-animation 600ms linear;
-    }
-    @keyframes ripple-animation {
-      to {
-        transform: translate(-50%, -50%) scale(4);
-        opacity: 0;
-      }
-    }
-    .dark .ripple-effect {
-      background-color: rgba(255,255,255,0.1);
-    }
   </style>
   </head>
 <body class="bg-background-light dark:bg-background-dark text-[#181511] dark:text-white font-display antialiased overflow-x-hidden">
@@ -104,46 +81,8 @@ const ACCESS_DENIED_HTML = (url: string) => `
 <h1 class="text-[#181511] dark:text-white tracking-tight text-3xl font-bold leading-tight text-center mb-4">
                 Script Access Denied
             </h1>
-<!-- Body Text -->
-<p class="text-[#181511]/70 dark:text-white/70 text-base font-normal leading-relaxed text-center mb-8">
-                This script has been blocked browser access due to the config privacy settings sites, this can only read with lua client only! Please use Loadstring to able to use this script!
-            </p>
-<!-- Code Snippet Section -->
-<div class="w-full flex flex-col gap-2 mb-8 animate-fade-in-up">
-<div class="flex justify-between items-baseline px-1">
-<span class="text-[#181511]/60 dark:text-white/50 text-sm font-medium">Required Loadstring:</span>
-</div>
-<div class="group relative w-full bg-[#181511]/5 dark:bg-white/5 rounded-xl border border-[#181511]/10 dark:border-white/10 overflow-hidden transition-all hover:border-primary/50">
-<!-- Code Content -->
-<div id="loadstring" class="p-4 pr-14 font-mono text-sm text-primary break-all leading-6">
-                        loadstring(game:HttpGet("${url}"))()
-                    </div>
-<!-- Copy Button -->
-<button id="copyButton" aria-label="Copy to clipboard" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg text-[#181511]/40 dark:text-white/40 hover:text-primary hover:bg-primary/10 transition-colors">
-<span id="copyIcon" class="material-symbols-outlined" style="font-size: 20px;">content_copy</span>
-</button>
 </div>
 </div>
-</div>
-</div>
-<script>
-  document.getElementById('copyButton').addEventListener('click', async function() {
-    const loadstringText = document.getElementById('loadstring').innerText;
-    const copyIcon = document.getElementById('copyIcon');
-    const originalIcon = copyIcon.innerHTML;
-    try {
-      await navigator.clipboard.writeText(loadstringText);
-      copyIcon.innerHTML = 'check';
-      copyIcon.style.color = '#10b981';
-      setTimeout(() => {
-        copyIcon.innerHTML = originalIcon;
-        copyIcon.style.color = '';
-      }, 2000);
-    } catch (err) {
-      // Fallback
-    }
-  });
-</script>
 </body></html>
 `;
 
