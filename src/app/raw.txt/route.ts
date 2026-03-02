@@ -81,6 +81,10 @@ const ACCESS_DENIED_HTML = (url: string) => `
 <h1 class="text-[#181511] dark:text-white tracking-tight text-3xl font-bold leading-tight text-center mb-4">
                 Script Access Denied
             </h1>
+<!-- New Message -->
+<p class="text-[#181511]/70 dark:text-white/70 text-base font-normal leading-relaxed text-center mb-8 animate-fade-in-up">
+                This endpoint is strictly for Lua client usage. Browser requests are blocked for security purposes.
+            </p>
 </div>
 </div>
 </body></html>
