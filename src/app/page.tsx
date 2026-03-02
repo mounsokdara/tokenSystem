@@ -4,12 +4,13 @@
 import { useState, useEffect } from 'react';
 import { generateDailyToken, getCurrentUtcDateStr } from '@/app/lib/token-utils';
 import { format } from 'date-fns';
-import { Hash, Calendar, Lock, ExternalLink, Zap, Infinity } from 'lucide-react';
+import { Hash, Calendar, Lock, ExternalLink, Zap, Infinity, Clock } from 'lucide-react';
 import { CopyButton } from '@/components/copy-button';
 
 export default function Home() {
   const [data, setData] = useState<{ token: string; displayDate: string } | null>(null);
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [currentTime, setCurrentTime] = useState<string | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -25,6 +26,14 @@ export default function Home() {
     } else {
       setIsAuthorized(false);
     }
+
+    // Live Clock Logic
+    const timer = setInterval(() => {
+      const now = new Date();
+      setCurrentTime(now.toUTCString().split(' ')[4] + ' UTC');
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, []);
 
   if (isAuthorized === false) {
@@ -96,18 +105,30 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex flex-col items-center gap-6">
-                <div className="flex flex-col items-center gap-2">
-                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
+              <div className="grid grid-cols-2 gap-8 items-start">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
                     <Calendar className="w-3 h-3" />
                     Validity.Period
                   </div>
-                  <div className="text-xl font-medium text-primary tracking-widest">
+                  <div className="text-lg font-medium text-primary tracking-widest">
                     {data.displayDate}
                   </div>
                 </div>
 
-                <div className="pt-8 w-full max-w-xs border-t border-white/5">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
+                    <Clock className="w-3 h-3" />
+                    System.Time
+                  </div>
+                  <div className="text-lg font-medium text-accent tracking-widest">
+                    {currentTime || "--:--:--"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center pt-8">
+                <div className="w-full max-w-xs border-t border-white/5 pt-8">
                   <div className="text-[9px] text-muted-foreground/30 uppercase tracking-[0.2em] mb-4">
                     Upgrade options available
                   </div>

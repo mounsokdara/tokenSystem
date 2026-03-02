@@ -3,7 +3,7 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Infinity, ChevronLeft, ShieldCheck } from 'lucide-react';
+import { Infinity, ChevronLeft, ShieldCheck, Clock } from 'lucide-react';
 import { CopyButton } from '@/components/copy-button';
 import Link from 'next/link';
 import config from '@config/checkpoint-config.json';
@@ -12,11 +12,20 @@ function LifeTimeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const apiToken = searchParams.get('ApiAccessToken');
+  const [currentTime, setCurrentTime] = useState<string | null>(null);
 
   useEffect(() => {
     if (apiToken !== 'YEUURYEYEEUU') {
       router.push('/');
     }
+
+    // Live Clock Logic
+    const timer = setInterval(() => {
+      const now = new Date();
+      setCurrentTime(now.toUTCString().split(' ')[4] + ' UTC');
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, [apiToken, router]);
 
   if (apiToken !== 'YEUURYEYEEUU') return null;
@@ -33,9 +42,15 @@ function LifeTimeContent() {
             <ChevronLeft className="w-3 h-3" />
             <span>Terminal.Return</span>
           </Link>
-          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-            <ShieldCheck className="w-3 h-3" />
-            Permanent.Access.Unlocked
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-accent">
+              <Clock className="w-3 h-3" />
+              <span>{currentTime || "--:--:--"}</span>
+            </div>
+            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary border-l border-white/10 pl-4">
+              <ShieldCheck className="w-3 h-3" />
+              Permanent.Access.Unlocked
+            </div>
           </div>
         </header>
 
