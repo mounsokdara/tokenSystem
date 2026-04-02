@@ -60,7 +60,7 @@ export default function Home() {
 
           <div className="space-y-4 pt-4">
             <a 
-              href="https://link-target.net/1408661/Ays6AavuxWJ1" 
+              href="https://link-center.net/1408661/4gO7G8Ox8NhA" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-full inline-flex items-center justify-center gap-2 px-8 py-3 bg-white/5 border border-white/10 text-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all active:scale-95"
